@@ -48,6 +48,9 @@
         total: zip.locations.filter(function(currentLoc) {
           return currentLoc.neighborhood === neighborhood;
         })
+        .map(function(currentLoc) {
+          console.log(currentLoc);
+        })
       };
     });
   };
