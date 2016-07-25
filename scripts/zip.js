@@ -28,16 +28,40 @@
     });
   };
 
-  zip.getTopFive = function() {
-    return zip.locations.map(function(obj, index, array) {
+  zip.getNeighborhoods = function() {
+    var neighborhoods = zip.locations.map(function(currentObj) {
+      return currentObj.neighborhood;
+      console.log(currentObj.neighborhood);
+    }).reduce(function(uniqueLocs, currentLoc, index, array) {
+      if(uniqueLocs.indexOf(currentLoc) === -1) {
+        uniqueLocs.push(currentLoc);
+      }
+      return uniqueLocs;
+    }, []);
+    return neighborhoods;
+  };
+
+  zip.getNeighborhoodCount = function() {
+    return zip.getNeighborhoods().map(function(neighborhood) {
       return {
-        place: array[index].neighborhood,
-        total: zip.locations.filter(function(curLocation) {
-          return curLocation.neighborhood === neighborhood;
+        place: neighborhood,
+        total: zip.locations.filter(function(currentLoc) {
+          return currentLoc.neighborhood === neighborhood;
         })
       };
     });
   };
+
+  // zip.getTopFive = function() {
+  //   return zip.locations.map(function(obj, index, array) {
+  //     return {
+  //       place: array[index].neighborhood,
+  //       total: zip.locations.filter(function(curLocation) {
+  //         return curLocation.neighborhood === neighborhood;
+  //       })
+  //     };
+  //   }).sort();
+  // };
 
   zip.getData();
   module.zip = zip;
