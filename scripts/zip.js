@@ -15,7 +15,7 @@
             lng: allData.geometry.coordinates[0]
           }
         };
-        console.log(newObj);
+        // console.log(newObj);
         return newObj;
       }).reduce(function(uniqueNeighborhoods, currentZip, index, array) {
         if(uniqueNeighborhoods.indexOf(currentZip.zipcode) === -1) {
@@ -28,14 +28,16 @@
     });
   };
 
-  // zip.getTopFive = function(datasetEntered) {
-  //   var results = getData().map(function(neighborhood) {
-  //     return {
-  //       place: neighborhood,
-  //       total:
-  //     }
-  //   })
-  // }
+  zip.getTopFive = function() {
+    return zip.locations.map(function(obj, index, array) {
+      return {
+        place: array[index].neighborhood,
+        total: zip.locations.filter(function(curLocation) {
+          return curLocation.neighborhood === neighborhood;
+        })
+      };
+    });
+  };
 
   zip.getData();
   module.zip = zip;
